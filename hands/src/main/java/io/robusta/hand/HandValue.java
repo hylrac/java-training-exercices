@@ -28,7 +28,9 @@ public class HandValue implements Comparable<HandValue>{
 	TreeSet<Card> singleCards = new TreeSet<>();
 	
 	
+	
 	public HandValue() {
+		
 		
 	}
 	

@@ -46,6 +46,7 @@ public class IDeckGeneratorTest extends PokerTest{
 	public void testGenerateCards() {
 		Card card = generateCard("5s");
 		TreeSet<Card> cards = generateCards("3d Th 5s");
+		System.out.println(cards.toString());
 		assertTrue(cards.size() == 3);
 		assertTrue(cards.contains(card));
 	}

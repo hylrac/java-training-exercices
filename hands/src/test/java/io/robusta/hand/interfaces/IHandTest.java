@@ -1,13 +1,14 @@
 package io.robusta.hand.interfaces;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import io.robusta.hand.Card;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import io.robusta.hand.Card;
 import io.robusta.hand.HandClassifier;
 import io.robusta.hand.PokerTest;
 import io.robusta.hand.solution.Deck;
@@ -77,7 +78,6 @@ public class IHandTest extends PokerTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testIsStraightWithAce() {
 		
 		IHand hand = newHand("4c 5c 2s 3s Ah");
@@ -119,14 +119,30 @@ public class IHandTest extends PokerTest {
 	public void testBeats() {
 		IHand hand1 = newHand("4c Kh 2c 2s Qc");
 		IHand hand2 = newHand("2c 3c 4c 5s 6c");
+//		System.out.println(hand1.highestValue());
+//		System.out.println("=========00000=========");
+//		System.out.println(hand1.getClassifier());
+//		System.out.println(hand2.getClassifier());
+//		System.out.println("comparetest1 " +hand1.getValue().compareTo(hand2.getValue()));
+//		System.out.println("comparetest2 " +hand2.getValue().compareTo(hand1.getValue()));
+		
 		assertTrue(hand2.beats(hand1));
 		
 		hand1 = newHand("2d 2h 2c 2s Qc");
 		hand2 = newHand("2c 3c 4c 5s 6c");
+
 		assertTrue(hand1.beats(hand2));
 		
 		hand1 = newHand("Td Th Kc 2s Qc");
 		hand2 = newHand("Tc Ts 4c 5s 6c");
+		System.out.println("=========00000=========");
+		System.out.println("classifier " + hand1.getValue().getClassifier());
+		System.out.println("levelvalue " + hand1.getValue().getLevelValue());
+		System.out.println("singlecards " + hand1.getValue().getSingleCards());
+		System.out.println("-----------------------");
+		System.out.println("classifier " + hand2.getValue().getClassifier());
+		System.out.println("levelvalue " + hand2.getValue().getLevelValue());
+		System.out.println("singlecards " + hand2.getValue().getSingleCards());
 		assertTrue(hand1.beats(hand2));
 	}
 	
