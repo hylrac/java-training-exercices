@@ -173,6 +173,10 @@ public class Hand extends TreeSet<Card> implements IHand {
 		TreeSet<Card> singleCards = new TreeSet<>();
 		// May be adapted at the end of project:
 		// if straight or flush : return empty
+		if ((this.getClassifier()==HandClassifier.FLUSH)||(this.getClassifier()==HandClassifier.STRAIGHT)
+				||(this.getClassifier()==HandClassifier.STRAIGHT_FLUSH)){
+			
+		}
 		// If High card, return 4 cards
 		for (List<Card> group : map.values()) {
 			if (group.size() == 1) {
