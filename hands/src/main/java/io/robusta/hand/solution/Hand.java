@@ -28,7 +28,6 @@ public class Hand extends TreeSet<Card> implements IHand {
 	public Hand() {
 	}
 
-	
 	public Set<Card> changeCards(IDeck deck, Set<Card> cards) {
 		// For exemple remove three cards from this hand
 		// , and get 3 new ones from the Deck
@@ -45,12 +44,12 @@ public class Hand extends TreeSet<Card> implements IHand {
 	 */
 	@Override
 	public boolean beats(IHand villain) {
-		//System.out.println("yo1 " + this.getValue()+villain.getValue() );
-		HandValue handValue=this.getValue();
-		
+		HandValue handValue = this.getValue();
 
-		//if (this.getClassifier().compareTo(villain.getClassifier())) return true;
-		if (handValue.compareTo(villain.getValue())>0) return true;
+		// if (this.getClassifier().compareTo(villain.getClassifier())) return
+		// true;
+		if (handValue.compareTo(villain.getValue()) > 0)
+			return true;
 		return false;
 
 	}
@@ -65,51 +64,6 @@ public class Hand extends TreeSet<Card> implements IHand {
 	public HandClassifier getClassifier() {
 
 		return this.getValue().getClassifier();
-	}
-
-	@Override
-	public boolean isStraight() {
-		// tentative ratée pour copier group().get(14) dans group.get(1)
-		// List<Card> listAs = this.group().get(14);
-		// this.group().put(1, listAs);
-
-		for (int i = 1; i < 11; i++) {
-			int count = 0;
-			int j = i;
-			while (j < i + 5) {
-				if (j == 1) {
-					if (this.group().get(14) != null) {
-						count++;
-					}
-				}
-				if (this.group().get(j) != null) {
-					count++;
-				}
-				j++;
-			}
-			if (count == 5)
-				return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean isFlush() {
-
-		for (int i = 1; i < 5; i++) {
-			int count = 0;
-			for (Card element : this) {
-
-				if (element.getColor().getValue() == i)
-					count++;
-				if (count == 5)
-					return true;
-			}
-
-		}
-
-		return false;
 	}
 
 	/**
@@ -168,30 +122,29 @@ public class Hand extends TreeSet<Card> implements IHand {
 	TreeSet<Card> getSingleCards() {
 		// method is done, DO NOT TOUCH !
 		TreeSet<Card> singleCards = new TreeSet<>();
-		// May be adapted at the end of project:
 		// if straight or flush : return empty
 		System.out.println("TU PASSES ICI?????");
-
-
-		if ((this.getClassifier()==HandClassifier.FLUSH)||(this.getClassifier()==HandClassifier.STRAIGHT)
-				||(this.getClassifier()==HandClassifier.STRAIGHT_FLUSH)||(this.getClassifier()==HandClassifier.FULL)){
+		if ((this.getClassifier() == HandClassifier.FLUSH) || (this.getClassifier() == HandClassifier.STRAIGHT)
+				|| (this.getClassifier() == HandClassifier.STRAIGHT_FLUSH)
+				|| (this.getClassifier() == HandClassifier.FULL)) {
+			System.out.println("ET ICI?????");
 			return singleCards;
 		}
-		
 		// If High card, return 4 cards
 
-		if (this.getClassifier()==HandClassifier.HIGH_CARD){
-			for (int i = 0;i<this.highestValue();i++){
+		if (this.getClassifier() == HandClassifier.HIGH_CARD) {
+			System.out.println("OU LA ?");
+			for (int i = 0; i < this.highestValue(); i++) {
 				singleCards.addAll(this.group().get(i));
-				
+
 			}
 			return singleCards;
-			
+
 		}
 		System.out.println("est ce que je passe ici ? ");
-		for (List<Card> group : this.group().values()) {
-			if (group.size() == 1) {
-				singleCards.add(group.get(0));
+		for (List<Card> cards : this.group().values()) {
+			if (cards.size() == 1) {
+				singleCards.add(cards.get(0));
 			}
 		}
 		return singleCards;
@@ -204,16 +157,23 @@ public class Hand extends TreeSet<Card> implements IHand {
 
 		for (int i = 2; i < 15; i++) {
 			if (this.group().get(i) != null) {
-				if (this.group().get(i).size() == 2){
+				if (this.group().get(i).size() == 2) {
 					bufferLevelValue = i;
 					count++;
 				}
 			}
 		}
-		
+
 		if (count == 1) {
 			this.levelValue = bufferLevelValue;
-			this.singleCards = getSingleCards();
+			TreeSet<Card> singleCards = new TreeSet<>();
+			for (List<Card> cards : this.group().values()) {
+				if (cards.size() == 1) {
+					singleCards.add(cards.get(0));
+				}
+			}
+			this.singleCards = singleCards;
+
 			return true;
 		} else {
 			return false;
@@ -227,16 +187,23 @@ public class Hand extends TreeSet<Card> implements IHand {
 		int bufferLevelValue = 0;
 		for (int i = 2; i < 15; i++) {
 			if (this.group().get(i) != null) {
-				if (this.group().get(i).size() == 2){
+				if (this.group().get(i).size() == 2) {
 					bufferLevelValue = i;
 					count++;
-					
+
 				}
 
 			}
 		}
 		if (count == 2) {
 			this.levelValue = bufferLevelValue;
+			TreeSet<Card> singleCards = new TreeSet<>();
+			for (List<Card> cards : this.group().values()) {
+				if (cards.size() == 1) {
+					singleCards.add(cards.get(0));
+				}
+			}
+			this.singleCards = singleCards;
 			return true;
 		} else {
 			return false;
@@ -246,24 +213,30 @@ public class Hand extends TreeSet<Card> implements IHand {
 
 	@Override
 	public boolean isHighCard() {
-		if ((! this.isDoublePair())&&(! this.isFlush())&&(! this.isFourOfAKind())
-				&&(! this.isFull())&&(! this.isPair())
-				&&(! this.isStraight())&&(! this.isStraightFlush())){
+		if ((!this.isDoublePair()) && (!this.isFlush()) && (!this.isFourOfAKind()) && (!this.isFull())
+				&& (!this.isPair()) && (!this.isStraight()) && (!this.isStraightFlush())) {
+			TreeSet<Card> singleCards = new TreeSet<>();
+			for (int i = 0; i < this.highestValue(); i++) {
+				singleCards.addAll(this.group().get(i));
+
+			}
+			this.singleCards = singleCards;
+
 			return true;
-		}else{
+		} else {
 			return false;
-			
+
 		}
 	}
 
 	@Override
 	public boolean isTrips() {
 		int count = 0;
-		int bufferLevelValue =0;
+		int bufferLevelValue = 0;
 		for (int i = 2; i < 15; i++) {
 			if (this.group().get(i) != null) {
-				if (this.group().get(i).size() == 3){
-					
+				if (this.group().get(i).size() == 3) {
+
 					bufferLevelValue = i;
 					count++;
 				}
@@ -271,6 +244,13 @@ public class Hand extends TreeSet<Card> implements IHand {
 			}
 		}
 		if (count == 1) {
+			TreeSet<Card> singleCards = new TreeSet<>();
+			for (List<Card> cards : this.group().values()) {
+				if (cards.size() == 1) {
+					singleCards.add(cards.get(0));
+				}
+			}
+			this.singleCards = singleCards;
 			this.levelValue = bufferLevelValue;
 			return true;
 		} else {
@@ -278,16 +258,15 @@ public class Hand extends TreeSet<Card> implements IHand {
 
 		}
 
-		
 	}
 
 	@Override
 	public boolean isFourOfAKind() {
 		int count = 0;
-		int bufferLevelValue =0 ;
+		int bufferLevelValue = 0;
 		for (int i = 2; i < 15; i++) {
 			if (this.group().get(i) != null) {
-				if (this.group().get(i).size() == 4){
+				if (this.group().get(i).size() == 4) {
 					bufferLevelValue = i;
 					count++;
 				}
@@ -295,6 +274,13 @@ public class Hand extends TreeSet<Card> implements IHand {
 			}
 		}
 		if (count == 1) {
+			TreeSet<Card> singleCards = new TreeSet<>();
+			for (List<Card> cards : this.group().values()) {
+				if (cards.size() == 1) {
+					singleCards.add(cards.get(0));
+				}
+			}
+			this.singleCards = singleCards;
 			this.levelValue = bufferLevelValue;
 			return true;
 		} else {
@@ -302,23 +288,72 @@ public class Hand extends TreeSet<Card> implements IHand {
 
 		}
 
-		
-
 	}
 
 	@Override
 	public boolean isFull() {
-		if (this.isTrips()&&this.isPair()) {
+		if (this.isTrips() && this.isPair()) {
+
 			return true;
-		}else{
+		} else {
 			return false;
-			
+
 		}
+	}
+
+	@Override
+	public boolean isStraight() {
+		// tentative ratée pour copier group().get(14) dans group.get(1)
+		// List<Card> listAs = this.group().get(14);
+		// this.group().put(1, listAs);
+
+		for (int i = 1; i < 11; i++) {
+			int count = 0;
+			int j = i;
+			while (j < i + 5) {
+				if (j == 1) {
+					if (this.group().get(14) != null) {
+						count++;
+					}
+				}
+				if (this.group().get(j) != null) {
+					count++;
+				}
+				j++;
+			}
+			if (count == 5) {
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean isFlush() {
+
+		for (int i = 1; i < 5; i++) {
+			int count = 0;
+			for (Card element : this) {
+
+				if (element.getColor().getValue() == i)
+					count++;
+				if (count == 5) {
+
+					return true;
+				}
+			}
+
+		}
+
+		return false;
 	}
 
 	@Override
 	public boolean isStraightFlush() {
 		if (this.isStraight() && this.isFlush()) {
+
 			return true;
 		} else {
 			return false;
@@ -347,7 +382,7 @@ public class Hand extends TreeSet<Card> implements IHand {
 			return handValue;
 		}
 
-		if (this.isDoublePair()&&(! isFourOfAKind())) {
+		if (this.isDoublePair() && (!isFourOfAKind())) {
 			handValue.setClassifier(HandClassifier.TWO_PAIR);
 			handValue.setLevelValue(this.levelValue);
 			handValue.setSingleCards(this.singleCards); // or
@@ -355,30 +390,30 @@ public class Hand extends TreeSet<Card> implements IHand {
 			return handValue;
 		}
 
-		if (this.isPair()&&(! isFourOfAKind())) {
+		if (this.isPair() && (!isFourOfAKind())) {
 			handValue.setClassifier(HandClassifier.PAIR);
 			handValue.setLevelValue(this.levelValue);
 			handValue.setSingleCards(this.singleCards); // or
 														// this.getsingleCards()
 			return handValue;
 		}
-		
-		if (this.isStraight()&&(! isStraightFlush())) {
+
+		if (this.isStraight() && (!isStraightFlush())) {
 			handValue.setClassifier(HandClassifier.STRAIGHT);
 			handValue.setLevelValue(this.levelValue);
 			handValue.setSingleCards(this.singleCards); // or
 														// this.getsingleCards()
 			return handValue;
 		}
-		
-		if (this.isFlush()&&(! isStraightFlush())) {
+
+		if (this.isFlush() && (!isStraightFlush())) {
 			handValue.setClassifier(HandClassifier.FLUSH);
 			handValue.setLevelValue(this.levelValue);
 			handValue.setSingleCards(this.singleCards); // or
 														// this.getsingleCards()
 			return handValue;
 		}
-		
+
 		if (this.isFourOfAKind()) {
 			handValue.setClassifier(HandClassifier.FOUR_OF_A_KIND);
 			handValue.setLevelValue(this.levelValue);
@@ -386,15 +421,15 @@ public class Hand extends TreeSet<Card> implements IHand {
 														// this.getsingleCards()
 			return handValue;
 		}
-		
-		if (this.isTrips()&&(! isFull())&&(! isFourOfAKind())) {
+
+		if (this.isTrips() && (!isFull()) && (!isFourOfAKind())) {
 			handValue.setClassifier(HandClassifier.TRIPS);
 			handValue.setLevelValue(this.levelValue);
 			handValue.setSingleCards(this.singleCards); // or
 														// this.getsingleCards()
 			return handValue;
 		}
-		
+
 		if (this.isFull()) {
 			handValue.setClassifier(HandClassifier.FULL);
 			handValue.setLevelValue(this.levelValue);
@@ -402,7 +437,7 @@ public class Hand extends TreeSet<Card> implements IHand {
 														// this.getsingleCards()
 			return handValue;
 		}
-		
+
 		if (this.isHighCard()) {
 			handValue.setClassifier(HandClassifier.HIGH_CARD);
 			handValue.setLevelValue(this.levelValue);
@@ -418,30 +453,43 @@ public class Hand extends TreeSet<Card> implements IHand {
 
 	@Override
 	public boolean hasCardValue(int level) {
+		if (this.group().get(level)!=null){
+			return true;
+		}else{
+			return false;
+			
+		}
 
-		return false;
 	}
 
 	@Override
 	public boolean hasAce() {
-		return false;
+		if (this.group().get(14)!=null){
+			return true;
+		}else{
+			return false;
+			
+		}
 	}
 
 	@Override
 	public int highestValue() {
-		int buffer=0;
-		
-		/*if (! (this.group().get(2)!=null)&&(this.group().get(14)!=null)&&(this.isStraight()||this.isStraightFlush())){
-			for (int i = 2;i<15;i++){
-				if (this.group().get(i)!=null) buffer =i;
-			}
-			return buffer;
-		}else return 5;*/
-		if ((this.group().get(2)!=null)&&(this.group().get(14)!=null)&&(this.isStraight()||this.isStraightFlush())) {
+		int buffer = 0;
+
+		/*
+		 * if (!
+		 * (this.group().get(2)!=null)&&(this.group().get(14)!=null)&&(this.
+		 * isStraight()||this.isStraightFlush())){ for (int i = 2;i<15;i++){ if
+		 * (this.group().get(i)!=null) buffer =i; } return buffer; }else return
+		 * 5;
+		 */
+		if ((this.group().get(2) != null) && (this.group().get(14) != null)
+				&& (this.isStraight() || this.isStraightFlush())) {
 			return 5;
-		}else{
-			for (int i = 2;i<15;i++){
-				if (this.group().get(i)!=null) buffer =i;
+		} else {
+			for (int i = 2; i < 15; i++) {
+				if (this.group().get(i) != null)
+					buffer = i;
 			}
 			return buffer;
 		}

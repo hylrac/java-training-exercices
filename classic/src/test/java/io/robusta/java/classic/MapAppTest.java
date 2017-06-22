@@ -1,13 +1,16 @@
 package io.robusta.java.classic;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Created by nicorama on 21/06/2017.
@@ -159,7 +162,7 @@ public class MapAppTest {
     @Test
     public void getCards() throws Exception {
 
-        Map<Integer, Character> virtualCards = new HashMap<>();
+        Map<Integer, Character> virtualCards = new HashMap<Integer, Character>();
         virtualCards.put(2, 'h');
         virtualCards.put(4, 'c');
         virtualCards.put(6, 'd');

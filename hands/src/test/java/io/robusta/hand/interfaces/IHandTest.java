@@ -119,12 +119,10 @@ public class IHandTest extends PokerTest {
 		System.out.println("=0=0=0=0=0=0=0=0=0=");
 		IHand hand1 = newHand("4c Kh 2c 2s Qc");
 		IHand hand2 = newHand("2c 3c 4c 5s 6c");
-		System.out.println("isHighCard "+hand1.isHighCard());
 		System.out.println("classifier "+hand1.getValue().getClassifier());
 		System.out.println("levelvalue "+hand1.getValue().getLevelValue());
 		System.out.println("singlecard "+hand1.getValue().getSingleCards());
 		System.out.println("------------------");
-		System.out.println("isHighCard "+hand2.isHighCard());
 		System.out.println("classifier "+hand2.getValue().getClassifier());
 		System.out.println("levelvalue "+hand2.getValue().getLevelValue());
 		System.out.println("singlecard "+hand2.getValue().getSingleCards());
@@ -134,12 +132,10 @@ public class IHandTest extends PokerTest {
 		hand1 = newHand("2d 2h 2c 2s Qc");
 		hand2 = newHand("2c 3c 4c 5s 6c");
 		System.out.println();
-		System.out.println("isHighCard "+hand1.isHighCard());
 		System.out.println("classifier "+hand1.getValue().getClassifier());
 		System.out.println("levelvalue "+hand1.getValue().getLevelValue());
 		System.out.println("singlecard "+hand1.getValue().getSingleCards());
 		System.out.println("------------------");
-		System.out.println("isHighCard "+hand2.isHighCard());
 		System.out.println("classifier "+hand2.getValue().getClassifier());
 		System.out.println("levelvalue "+hand2.getValue().getLevelValue());
 		System.out.println("singlecard "+hand2.getValue().getSingleCards());
@@ -149,12 +145,10 @@ public class IHandTest extends PokerTest {
 		hand1 = newHand("Td Th Kc 2s Qc");
 		hand2 = newHand("Tc Ts 4c 5s 6c");
 		System.out.println();
-		System.out.println("isHighCard "+hand1.isHighCard());
 		System.out.println("classifier "+hand1.getValue().getClassifier());
 		System.out.println("levelvalue "+hand1.getValue().getLevelValue());
 		System.out.println("singlecard "+hand1.getValue().getSingleCards());
 		System.out.println("------------------");
-		System.out.println("isHighCard "+hand2.isHighCard());
 		System.out.println("classifier "+hand2.getValue().getClassifier());
 		System.out.println("levelvalue "+hand2.getValue().getLevelValue());
 		System.out.println("singlecard "+hand2.getValue().getSingleCards());

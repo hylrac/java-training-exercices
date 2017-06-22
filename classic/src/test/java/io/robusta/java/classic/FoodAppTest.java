@@ -1,9 +1,9 @@
 package io.robusta.java.classic;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by nicorama on 22/06/2017.
@@ -40,7 +40,6 @@ public class FoodAppTest {
     public void deliverAll() throws Exception {
 
         int initialMoney = app.money;
-        int initialStock = app.foodStock;
         assertTrue(initialMoney == 0);
         int value = app.deliverAll(5, 10);
 
